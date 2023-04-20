@@ -34,7 +34,12 @@ public class Menu : MonoBehaviour
             currentTime = currentTime + Time.deltaTime;
         }
         time = TimeSpan.FromSeconds(currentTime);
-        timeObj.text = time.ToString(@"mm\:ss\:fff");
+        timeObj.text = time.ToString(@"mm\:ss\.fff");
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void StartTimer()
@@ -88,7 +93,7 @@ public class Menu : MonoBehaviour
             timesPanel.SetActive(true);
             stopwatchPanel.SetActive(false);
 
-            timesTextObj[0].text = "Group One \n" + times[0].ToString(@"mm\:ss\:fff");
+            timesTextObj[0].text = "Group One \n" + times[0].ToString(@"mm\:ss\.fff");
         }
         else
         {
