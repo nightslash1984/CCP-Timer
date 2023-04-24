@@ -16,9 +16,10 @@ public class Menu : MonoBehaviour
 
     [SerializeField] float currentTime;
     [SerializeField] bool stopwatchActive;
-    [SerializeField] int timeToAdd;
     TimeSpan time;
     List<TimeSpan> times = new List<TimeSpan>();
+
+    [SerializeField] GameObject[] removeButton;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,20 @@ public class Menu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        if (times.Count == 1)
+        {
+            removeButton[0].SetActive(true);
+        } 
+        else if (times.Count == 2)
+        {
+            removeButton[1].SetActive(true);
+        }
+        else if (times.Count == 0)
+        {
+            removeButton[0].SetActive(false);
+            removeButton[1].SetActive(false);
         }
     }
 
@@ -103,16 +118,16 @@ public class Menu : MonoBehaviour
         }
     }
 
-    public void AddTime()
+    public void AddTime(int timeToAdd)
     {
         currentTime += timeToAdd;
     }
 
-    public void RemoveTime()
+    public void RemoveTime(int timeToRemove)
     {
-        if (currentTime - timeToAdd > 0)
+        if (currentTime - timeToRemove > 0)
         {
-            currentTime -= timeToAdd;
+            currentTime -= timeToRemove;
         }
         else
         {
@@ -135,5 +150,14 @@ public class Menu : MonoBehaviour
             timesTextObj[0].text = "Group One: \n";
             timesTextObj[1].text = "Group Two: \n";
         }
+    }
+
+    public void RemoveSaveTime(int Index)
+    {
+        times.RemoveAt(Index);
+        if (Index == 0)
+            timesTextObj[Index].text = "Group One: \n";
+        if (Index == 1)
+            timesTextObj[Index].text = "Group Two: \n";
     }
 }
